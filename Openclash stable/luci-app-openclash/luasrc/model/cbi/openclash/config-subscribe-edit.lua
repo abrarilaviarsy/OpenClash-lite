@@ -13,9 +13,17 @@ bold_on  = [[<strong>]]
 bold_off = [[</strong>]]
 
 
-m = Map(openclash)
+m = Map(openclash, translate("Config Subscribe Edit"))
 m.pageaction = false
-m.description=translate("")
+m.description=translate("Convert Subscribe function of Online is Supported By subconverter Written By tindy X") ..
+"<br/>"..
+"<br/>"..translate("API By tindy X & lhie1")..
+"<br/>"..
+"<br/>"..translate("Subconverter external configuration (subscription conversion template) Description: https://github.com/tindy2013/subconverter#external-configuration-file")..
+"<br/>"..
+"<br/>"..translate("If you need to customize the external configuration file (subscription conversion template), please write it according to the instructions, upload it to the accessible location of the external network, and fill in the address correctly when using it")..
+"<br/>"..
+"<br/>"..translate("If you have a recommended external configuration file (subscription conversion template), you can modify by following The file format of /usr/share/openclash/res/sub_ini.list and pr")
 m.redirect = luci.dispatcher.build_url("admin/services/openclash/config-subscribe")
 if m.uci:get(openclash, sid) ~= "config_subscribe" then
 	luci.http.redirect(m.redirect)
@@ -95,8 +103,6 @@ o.rmempty     = true
 o.description = font_red..bold_on..translate("Note: There is A Risk of Privacy Leakage in Online Convert")..bold_off..font_off
 o:depends("sub_convert", "1")
 o:value("https://api.dler.io/sub", translate("api.dler.io")..translate("(Default)"))
-o:value("https://v.id9.cc/sub", translate("v.id9.cc")..translate("(Support Vless By Pinyun)"))
-o:value("https://sub.id9.cc/sub", translate("sub.id9.cc"))
 o:value("https://api.wcc.best/sub", translate("api.wcc.best"))
 o.default = "https://api.dler.io/sub"
 o.placeholder = "https://api.dler.io/sub"
@@ -190,10 +196,10 @@ o.rmempty = true
 o = s:option(MultiValue, "de_ex_keyword", font_red..bold_on..translate("Exclude Keyword Match Default")..bold_off..font_off)
 o.rmempty = true
 o:depends("sub_convert", 0)
-o:value("Expiration time")
-o:value("Remaining traffic")
-o:value("TG group")
-o:value("Official website")
+o:value("过期时间")
+o:value("剩余流量")
+o:value("TG群")
+o:value("官网")
 
 local t = {
     {Commit, Back}
@@ -216,4 +222,5 @@ o.write = function()
    luci.http.redirect(m.redirect)
 end
 
+m:append(Template("openclash/toolbar_show"))
 return m
