@@ -9,9 +9,14 @@ font_off = [[</b>]]
 bold_on  = [[<strong>]]
 bold_off = [[</strong>]]
 
-m = Map(openclash)
+m = Map(openclash,  translate("Onekey Create (Servers&Groups manage)"))
 m.pageaction = false
-m.description=translate("")
+m.description=translate("Attention:")..
+"<br/>"..translate("1. Before modifying the configuration file, please click the button below to read the configuration file")..
+"<br/>"..translate("2. Proxy-providers address can be directly filled in the subscription link")..
+"<br/>"..
+"<br/>"..translate("Introduction to proxy usage: https://wiki.metacubex.one/config/proxies/")..
+"<br/>"..translate("Introduction to proxy-provider usage: https://wiki.metacubex.one/config/proxy-providers/")
 
 s = m:section(TypedSection, "openclash")
 s.anonymous = true
@@ -271,5 +276,6 @@ o.write = function()
 	luci.http.redirect(luci.dispatcher.build_url("admin", "services", "openclash"))
 end
 
+m:append(Template("openclash/toolbar_show"))
 
 return m
